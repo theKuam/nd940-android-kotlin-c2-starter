@@ -6,6 +6,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+    </style>
+
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/default_text_color</item>
+    </style>
+
+    <style name="MyTextLabel" parent="MyTextViewStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="MyTextSubtitle" parent="MyTextViewStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+    </style>
+
+    <style name="myTextString" parent="MyTextViewStyle">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:layout_marginTop">4dp</item>
     </style>
 
 </resources>

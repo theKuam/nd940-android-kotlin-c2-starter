@@ -1,7 +1,11 @@
 package com.udacity.asteroidradar.api
 
-import com.udacity.asteroidradar.Asteroid
+import android.annotation.SuppressLint
+import android.os.Build
+import com.udacity.asteroidradar.model.Asteroid
 import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.Constants.API_QUERY_DATE_FORMAT
+import com.udacity.asteroidradar.Constants.API_QUERY_DATE_FORMAT_ANDROID_BELOW_N
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,16 +48,41 @@ fun parseAsteroidsJsonResult(jsonResult: JSONObject): ArrayList<Asteroid> {
     return asteroidList
 }
 
+fun getFormattedDatePreviousDay(): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -1)
+    return calendar.time.toFormattedDate()
+}
+
+fun getFormattedDateToday(): String {
+    return Calendar.getInstance().time.toFormattedDate()
+}
+
+fun getFormattedDateNextSevenDay(): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, Constants.DEFAULT_END_DATE_DAYS)
+    return calendar.time.toFormattedDate()
+}
+
 private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     val formattedDateList = ArrayList<String>()
 
     val calendar = Calendar.getInstance()
     for (i in 0..Constants.DEFAULT_END_DATE_DAYS) {
         val currentTime = calendar.time
-        val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
-        formattedDateList.add(dateFormat.format(currentTime))
+        formattedDateList.add(currentTime.toFormattedDate())
         calendar.add(Calendar.DAY_OF_YEAR, 1)
     }
 
     return formattedDateList
+}
+
+@SuppressLint("WeekBasedYear", "SimpleDateFormat")
+private fun Date.toFormattedDate(): String {
+    val dateFormat = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        SimpleDateFormat(API_QUERY_DATE_FORMAT, Locale.getDefault())
+    } else {
+        SimpleDateFormat(API_QUERY_DATE_FORMAT_ANDROID_BELOW_N)
+    }
+    return dateFormat.format(this)
 }
