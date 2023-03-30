@@ -26,13 +26,25 @@ class AsteroidRepository(private val asteroidDatabase: AsteroidDatabase) {
         }
     }
 
+    suspend fun fetchAsteroidsNextSevenDays() = withContext(Dispatchers.IO) {
+        val response = AsteroidApi.retrofitService.getAsteroidsNextSevenDaysAsync().await()
+        val body = response.string()
+        try {
+            val jsonObject = JSONObject(body)
+            val asteroids = parseAsteroidsJsonResult(jsonObject)
+            asteroidDatabase.asteroidDao.insertAll(*asteroids.asEntity())
+        } catch (e: JSONException) {
+            Timber.e(e.message.toString())
+        }
+    }
+
     suspend fun getSavedAsteroids() = withContext(Dispatchers.IO) {
         asteroidDatabase.asteroidDao.getAsteroids().asModel()
     }
 
-    suspend fun getWeekAsteroids(today: String, nextSevenDays: String) =
+    suspend fun getWeekAsteroids(theNextDay: String, nextSevenDay: String) =
         withContext(Dispatchers.IO) {
-            asteroidDatabase.asteroidDao.getWeekAsteroids(today, nextSevenDays).asModel()
+            asteroidDatabase.asteroidDao.getWeekAsteroids(theNextDay, nextSevenDay).asModel()
         }
 
     suspend fun getTodayAsteroids(today: String) = withContext(Dispatchers.IO) {

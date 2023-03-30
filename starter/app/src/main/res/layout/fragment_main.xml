@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/cd_picture_of_the_day"
+                android:contentDescription="@{viewModel.apod.title}"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.apod.url}"
                 app:picasso="@{picasso}"

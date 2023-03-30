@@ -1,7 +1,11 @@
 package com.udacity.asteroidradar.main
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.*
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -10,6 +14,7 @@ import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.adapter.AsteroidAdapter
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 import timber.log.Timber
+
 
 class MainFragment : Fragment() {
 
@@ -50,18 +55,23 @@ class MainFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.forEach {
+            val s = SpannableString(it.title)
+            s.setSpan(ForegroundColorSpan(Color.BLACK), 0, s.length, 0)
+            it.title = s
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.show_week_menu -> {
-                Timber.d("week onClicked")
                 viewModel.getWeekAsteroids()
             }
             R.id.show_today_menu -> {
-                Timber.d("today onClicked")
                 viewModel.getTodayAsteroids()
             }
             R.id.show_saved_menu -> {
-                Timber.d("saved onClicked")
                 viewModel.getSavedAsteroids()
             }
         }

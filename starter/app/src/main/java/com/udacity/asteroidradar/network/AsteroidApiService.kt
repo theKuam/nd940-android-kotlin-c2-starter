@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.udacity.asteroidradar.Constants.API_KEY
 import com.udacity.asteroidradar.Constants.BASE_URL
+import com.udacity.asteroidradar.api.getFormattedDateTheNextDay
 import com.udacity.asteroidradar.api.getFormattedDateToday
 import com.udacity.asteroidradar.model.PictureOfDay
 import kotlinx.coroutines.Deferred
@@ -19,6 +20,12 @@ interface AsteroidApiService {
     @GET("neo/rest/v1/feed")
     fun getAsteroidsAsync(
         @Query("start_date") startDate: String = getFormattedDateToday(),
+        @Query("api_key") apiKey: String = API_KEY,
+    ): Deferred<ResponseBody>
+
+    @GET("neo/rest/v1/feed")
+    fun getAsteroidsNextSevenDaysAsync(
+        @Query("start_date") startDate: String = getFormattedDateTheNextDay(),
         @Query("api_key") apiKey: String = API_KEY,
     ): Deferred<ResponseBody>
 

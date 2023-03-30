@@ -3,6 +3,7 @@ package com.udacity.asteroidradar.main
 import android.app.Application
 import androidx.lifecycle.*
 import com.udacity.asteroidradar.api.getFormattedDateNextSevenDay
+import com.udacity.asteroidradar.api.getFormattedDateTheNextDay
 import com.udacity.asteroidradar.api.getFormattedDateToday
 import com.udacity.asteroidradar.database.AsteroidDatabase
 import com.udacity.asteroidradar.model.Asteroid
@@ -38,7 +39,7 @@ class MainViewModel(application: Application) : ViewModel() {
     fun getWeekAsteroids() {
         viewModelScope.launch {
             _asteroids.value = asteroidRepository.getWeekAsteroids(
-                getFormattedDateToday(),
+                getFormattedDateTheNextDay(),
                 getFormattedDateNextSevenDay()
             )
         }

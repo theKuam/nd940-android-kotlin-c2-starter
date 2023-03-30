@@ -10,8 +10,10 @@ import com.udacity.asteroidradar.R
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
+        imageView.contentDescription = imageView.resources.getStringArray(R.array.cd_isHazardous)[0]
     } else {
         imageView.setImageResource(R.drawable.ic_status_normal)
+        imageView.contentDescription = imageView.resources.getStringArray(R.array.cd_isHazardous)[1]
     }
 }
 
@@ -24,8 +26,10 @@ fun bindPictureOfTheDay(imageView: ImageView, imageUrl: String?, picasso: Picass
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.asteroid_hazardous)
+        imageView.contentDescription = imageView.resources.getStringArray(R.array.cd_isHazardous)[0]
     } else {
         imageView.setImageResource(R.drawable.asteroid_safe)
+        imageView.contentDescription = imageView.resources.getStringArray(R.array.cd_isHazardous)[1]
     }
 }
 

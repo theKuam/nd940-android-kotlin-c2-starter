@@ -20,8 +20,10 @@
     <string name="not_hazardous_asteroid_image">Hình ảnh tiểu hành tinh không có nguy cơ gây hại</string>
     <string name="this_is_nasa_s_picture_of_day_showing_nothing_yet">Đây là hình ảnh ấn tượng trong ngày của NASA, chưa cần hiển thị gì cả.</string>
     <string name="nasa_picture_of_day_content_description_format">Ấn tượng trong ngày của NASA: %s</string>
-    <string name="cd_hazardous_icon">biểu tượng mức độ gây hại</string>
-    <string name="cd_picture_of_the_day">ấn tượng trong ngày</string>
+    <string-array name="cd_isHazardous">
+        <item name="cd_potentially_hazardous">potentially hazardous asteroid</item>
+        <item name="cd_not_hazardous">not hazardous asteroid</item>
+    </string-array>
     <string name="cd_help_button">nút trợ giúp</string>
     <string name="cd_hazardous_classification_image">hình ảnh phân loại mức độ gây hại</string>
 </resources>
